@@ -8,7 +8,6 @@ const router = new Router();
 const main = async (ctx, next) => {
   ctx.type = 'html';
   ctx.body = fs.createReadStream('./public/index.html');
-  console.log(`${Date.now()} ${ctx.method} ${ctx.url}`);
 }
 const list = async (ctx, next) => {
   ctx.body='列表页';
@@ -21,6 +20,10 @@ const list = async (ctx, next) => {
    ctx.type = 'xml';
    ctx.body = '<data>Hello World</data>'
  }
+const json = async (ctx, next) => {
+  ctx.type = 'json';
+  ctx.body = {name:'fang'}
+}
  const templateHtml = async (ctx, next) => {
    ctx.type = 'html';
    ctx.body = fs.createReadStream('./public/index.html')
@@ -39,6 +42,7 @@ router.get('/', main)
       .get('/list', list)
       .get('/list/:id', item)
       .get('/xml', xml)
+      .get('/json', json)
       .get('/template', templateHtml)
       .get('/redirect', redirect)
       .get('/throws', throws)
